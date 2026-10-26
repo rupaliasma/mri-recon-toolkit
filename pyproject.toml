@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mrirecon"
+version = "0.1.0"
+description = "Fourier-PD and Fourier-PDUNet for undersampled MRI reconstruction, trained on fastMRI"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{ name = "Soumick Chatterjee" }, { name = "Rupali Khatun" }]
+keywords = ["MRI", "reconstruction", "deep learning", "primal-dual", "fastMRI", "complex-valued"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = ["torch>=2.1", "numpy>=1.24", "h5py>=3.8"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.4", "scikit-image>=0.21"]
+
+[project.scripts]
+mrirecon = "mrirecon.cli:main"
+
+[project.urls]
+Paper = "https://doi.org/10.1038/s41598-025-96071-x"
+"Original code" = "https://github.com/soumickmj/NCC1701"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B905"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = ["ignore::UserWarning"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["mrirecon", "conftest"]
